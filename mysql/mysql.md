@@ -71,3 +71,15 @@ alter table 表名 drop 字段名;
 
 四、删除数据表：
 drop table + 表名;
+
+## 数据操作
+一、插入数据
+语法1：insert into 表名 (字段1，字段2) values (值1，值2);
+insert into hai_student (name,age) values ('hello',24);
+
+语法2：insert into 表名 values (值列表)
+字段和值必须一一对应
+
+二、查看数据：
+select */字段列表 from 表名；
+select name from hai_student;
