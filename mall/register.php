@@ -1,28 +1,44 @@
 <?php
 // 在同一个文件中，区分一下是后端表单提交还是前端展示页面
-if(!empty($_POST('username'))){
-  $username = trim($_POST('username'));
-  $password = trim($_POST('password'));
-  $repassword = trim($_POST('repassword'));
-}
+if(!empty($_POST['username'])){
+  include_once './lib/fun.php';
+  $username = trim($_POST['username']);
+  $password = trim($_POST['password']);
+  $repassword = trim($_POST['repassword']);
 
-// 校验
-if(!$username){
+  // 校验
+  if(!$username){
     echo '用户名不能为空';
     exit;
-}
-if(!$password){
+  }
+  if(!$password){
     echo '密码不能为空';
     exit;
-}
-if(!$repassword){
+  }
+  if(!$repassword){
     echo '确认密码不能为空';
     exit;
-}
-if($password !== $repassword){
+  }
+  if($password !== $repassword){
     echo '两次输入密码不一致，请重新输入';
     exit;
-}
+  }
+
+  // 数据库操作
+  $con = mysqlInit('localhost','root','','imooc_mall');
+  if(!$con){
+  echo mysql_error();
+  exit;
+  };
+
+  // 判断用户是否在数据库中已经存在
+  $sql = "SELECT COUNT(`id`) as total from `im_user` where `username` = '${username}'" ;
+  $obj = mysql_query($sql);
+  $result = mysql_fetch_assoc($obj);
+  var_dump($result);die;
+  }
+
+
 
 ?>
 
