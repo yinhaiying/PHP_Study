@@ -83,3 +83,16 @@ insert into hai_student (name,age) values ('hello',24);
 二、查看数据：
 select */字段列表 from 表名；
 select name from hai_student;
+
+三、更改数据
+语法：
+update 表名 set 字段名称 = 新值 [where条件];
+注意：where条件如果不选会把所有的数据都修改;
+update student set name = 'mayun' where name = 'Bob';
+最好是使用主键去查询
+
+四、删除数据
+语法：
+delete from 表名 [where条件];
+注意：如果没有where条件，会把所有的数据都删除掉。
+delete from student where name = 'mayun';
