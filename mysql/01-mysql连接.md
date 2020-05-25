@@ -96,3 +96,22 @@ update student set name = 'mayun' where name = 'Bob';
 delete from 表名 [where条件];
 注意：如果没有where条件，会把所有的数据都删除掉。
 delete from student where name = 'mayun';
+```sql
+delete from student where name = "Bob" limit 3;
+```
+delete删除数据表不会影响auto_increment。
+truncate清空表：
+```sql
+truncate student;
+```
+truncate清空数据表，表结构的auto_increment会彻底删除，从1开始。
+
+总结：
+使用delete删除数据，不会改变表结构，也不会重置自动增长
+使用truncate清空数据表，不会改变表结构，但是会重置自动增长
+
+
+## 查询数据
+基本语法：select */字段列表 from 表名[where条件]
+**高级查找语法**
+select [select 选项] 字段列表[字段别名] /* from 数据源
