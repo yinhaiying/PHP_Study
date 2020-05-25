@@ -55,7 +55,7 @@ show create table hai_person \G;  \G表示纵向排列
 语法：alter table 表名 add column 字段名称 字段类型；
 alter table hai_person add column age int;
 将字段添加在指定位置：
-语法：alter table 表名 add column 字段名称 字段类型 after 字段名称;
+语法：alter table 表名 add column 字段名称 字段类型 [first|after 字段名称];
 alter table hai_person add column gender varchar(10) after age;
 
 修改字段数据类型：
@@ -73,12 +73,21 @@ alter table 表名 drop 字段名;
 drop table + 表名;
 
 ## 数据操作
+表数据操作是对数据库中表记录的操作，主要包括表记录的插入（insert）、更新（update）、删除（delete）和查询（select）。
 一、插入数据
 语法1：insert into 表名 (字段1，字段2) values (值1，值2);
 insert into hai_student (name,age) values ('hello',24);
 
 语法2：insert into 表名 values (值列表)
 字段和值必须一一对应
+
+插入数据时，可空字段、非空但是含有默认值的字段、自增字段等，可以不用在insert后的字段列表里出现，values后面只写对应字段名称的values。
+比如表中有name,age,sex三个字段，其中sex可以为空，那么我们插入时可以只设置name和age字段的值，示例：
+insert into hai_student (name,age) values('hello',24);
+
+支持同时插入多条语句：
+insert into tablename (field1,field2) values (record1_value1,record1_value2),(record2_value1,record2_value2);
+
 
 二、查看数据：
 select */字段列表 from 表名；
