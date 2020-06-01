@@ -1,17 +1,21 @@
 <?php
 
+/*
+* @params
+*
+*/
 function mysqlInit($host,$username,$password,$dbName){
 // 连接数据库
-  $con = mysql_connect($host,$username,$password);
-  if(!$con){
-      return false;
+  $dsn = "mysql:host={$host};dbname={$dbName}";
+  try{
+      $con = new PDO($dsn,$username,$password);
+      if(!$con){
+        return false;
+      }
+      return $con;
+  }catch(PDOException $e){
+      echo $e->getMessage();
   }
-  // 选择数据库
-  mysql_select_db($dbName);
-  // 设置字符集
-  mysql_set_charset('utf-8');
-
-  return $con;
 }
 
 

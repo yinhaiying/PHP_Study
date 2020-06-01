@@ -1,7 +1,9 @@
 <?php
 // 在同一个文件中，区分一下是后端表单提交还是前端展示页面
 if(!empty($_POST['username'])){
+  // 引入MySQL数据库的连接
   include_once './lib/fun.php';
+
   $username = trim($_POST['username']);
   $password = trim($_POST['password']);
   $repassword = trim($_POST['repassword']);
@@ -24,19 +26,26 @@ if(!empty($_POST['username'])){
     exit;
   }
 
-  // 数据库操作
-  $con = mysqlInit('localhost','root','','imooc_mall');
-  if(!$con){
-  echo mysql_error();
-  exit;
-  };
+    // 数据库操作
+    $con = mysqlInit('localhost','root','','imooc_mall');
+    if(!$con){
+      echo mysql_error();
+      exit;
+    };
 
-  // 判断用户是否在数据库中已经存在
-  $sql = "SELECT COUNT(`id`) as total from `im_user` where `username` = '${username}'" ;
-  $obj = mysql_query($sql);
-  $result = mysql_fetch_assoc($obj);
-  var_dump($result);die;
-  }
+    // 将用户表单数据插入到数据库
+    // 判断用户是否在数据库中已经存在
+    $sql = "SELECT COUNT(`id`) as total from `im_user` where `username` = '${username}'" ;
+    $pre = $con -> prepare($sql);
+    $res = $pre -> execute();
+    if($res){
+      $row = $pre -> fetch(PDO::FETCH_ASSOC);
+      // 表示用户已存在
+      if(isset($res['total']) && $res['total'] > 0){
+        echo '用户名已存在，请重新输入';
+      }
+    }
+}
 
 
 
